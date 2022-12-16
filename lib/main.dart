@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_app/blocs/playing_movie_bloc.dart';
+import 'package:movie_app/blocs/playing_movie_event.dart';
 import 'package:movie_app/repositories/movie_remote_data_repositories.dart';
 import 'package:movie_app/screens/home_screen.dart';
 
@@ -18,7 +19,7 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider<PlayingMovieBloc>(
             create: (BuildContext context) =>
-                PlayingMovieBloc(MovieRemoteDataRepositories())),
+                PlayingMovieBloc(MovieRemoteDataRepositories())..add(GetPlayingMovieEvent())),
       ],
       child: MaterialApp(
         title: 'MovieApp',
