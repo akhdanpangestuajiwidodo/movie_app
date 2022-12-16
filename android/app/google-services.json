@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "366409080012",
+    "project_id": "movie-app-b494c",
+    "storage_bucket": "movie-app-b494c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:366409080012:android:ddc882ba68e596c6edb669",
+        "android_client_info": {
+          "package_name": "com.akhdanpangestuaji.movie_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "366409080012-bpp0ud282eemkrmjmcr6tr7e1l26u8uo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBvHGqZCQcEn7BA7myeI2k9q5DffnP-WpU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "366409080012-bpp0ud282eemkrmjmcr6tr7e1l26u8uo.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
