@@ -3,7 +3,7 @@ import 'package:movie_app/models/movie_table_model.dart';
 
 class FavoritesMovieEvent extends Equatable {
   @override
-  List<Object?> get props => [];
+  List<Object> get props => [];
 }
 
 class GetFavoritesMovieEvent extends FavoritesMovieEvent {
@@ -12,7 +12,7 @@ class GetFavoritesMovieEvent extends FavoritesMovieEvent {
   GetFavoritesMovieEvent(this.username);
 
   @override
-  List<Object?> get props => [username];
+  List<Object> get props => [username];
 }
 
 class AddFavoritesMovieEvent extends FavoritesMovieEvent {
@@ -21,7 +21,7 @@ class AddFavoritesMovieEvent extends FavoritesMovieEvent {
   AddFavoritesMovieEvent(this.movie);
 
   @override
-  List<Object?> get props => [movie];
+  List<Object> get props => [movie];
 }
 
 class CheckFavoriteMovieIsSavedEvent extends FavoritesMovieEvent {
@@ -30,7 +30,7 @@ class CheckFavoriteMovieIsSavedEvent extends FavoritesMovieEvent {
   CheckFavoriteMovieIsSavedEvent(this.movie);
 
   @override
-  List<Object?> get props => [movie];
+  List<Object> get props => [movie];
 }
 
 class DeleteFavoritesMovieEvent extends FavoritesMovieEvent {
@@ -39,5 +39,5 @@ class DeleteFavoritesMovieEvent extends FavoritesMovieEvent {
   DeleteFavoritesMovieEvent(this.movie);
 
   @override
-  List<Object?> get props => [movie];
+  List<Object> get props => [movie];
 }

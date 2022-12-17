@@ -4,7 +4,7 @@ class PlayingMovieEvent extends Equatable {
   const PlayingMovieEvent();
 
   @override
-  List<Object?> get props => [];
+  List<Object> get props => [];
 }
 
 class GetPlayingMovieEvent extends PlayingMovieEvent {}
