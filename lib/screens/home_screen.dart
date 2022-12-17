@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_app/blocs/playing_movie_bloc.dart';
 import 'package:movie_app/blocs/playing_movie_state.dart';
+import 'package:movie_app/screens/favorites_screen.dart';
 
 import '../widgets/card_movie_widget.dart';
 
@@ -14,6 +15,30 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: Drawer(
+        child: Column(
+          children: [
+            const UserAccountsDrawerHeader(
+              accountName: Text('Movie App'),
+              accountEmail: Text('akhdan'),
+            ),
+            ListTile(
+              leading: Icon(Icons.movie),
+              title: Text('Movies'),
+              onTap: () {
+                Navigator.pop(context);
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.save),
+              title: Text('Favorites'),
+              onTap: () {
+                Navigator.pushNamed(context, FavoriteScreen.routeName);
+              },
+            ),
+          ],
+        ),
+      ),
       appBar: AppBar(
         title: Text('Home Page'),
       ),
