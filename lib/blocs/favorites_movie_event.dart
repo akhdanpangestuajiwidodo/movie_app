@@ -32,3 +32,12 @@ class CheckFavoriteMovieIsSavedEvent extends FavoritesMovieEvent {
   @override
   List<Object?> get props => [movie];
 }
+
+class DeleteFavoritesMovieEvent extends FavoritesMovieEvent {
+  final MovieTableModel movie;
+
+  DeleteFavoritesMovieEvent(this.movie);
+
+  @override
+  List<Object?> get props => [movie];
+}
