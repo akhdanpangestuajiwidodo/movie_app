@@ -19,4 +19,9 @@ class MovieRemoteDataRepositories implements MovieRemoteDataInterface {
       return null;
     }
   }
+
+  @override
+  Future<MovieModel>? getDetailMovie(int id) {
+
+  }
 }
