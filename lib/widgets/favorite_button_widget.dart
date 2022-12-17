@@ -16,27 +16,33 @@ class FavoriteButton extends StatefulWidget {
 }
 
 class _FavoriteButtonState extends State<FavoriteButton> {
-  bool isFavorite = false;
+  @override
+  void initState() {
+    super.initState();
+    context
+        .read<FavoritesMovieBloc>()
+        .add(CheckFavoriteMovieIsSavedEvent(widget.movie));
+  }
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<FavoritesMovieBloc, FavoritesMovieState>(
       builder: (context, state) {
-        return IconButton(
-          icon: Icon(
-            isFavorite ? Icons.favorite : Icons.favorite_border,
-            color: Colors.red,
-          ),
-          onPressed: () {
-            context
-                .read<FavoritesMovieBloc>()
-                .add(AddFavoritesMovieEvent(widget.movie));
-            setState(() {
-              isFavorite = !isFavorite;
-            });
-            Navigator.pushNamed(context, FavoriteScreen.routeName);
-          },
-        );
+        if (state is CheckFavoriteMovieIsSaveState) {
+          return IconButton(
+            icon: Icon(
+              Icons.favorite,
+              color: Colors.red,
+            ),
+            onPressed: () {
+              context
+                  .read<FavoritesMovieBloc>()
+                  .add(AddFavoritesMovieEvent(widget.movie));
+            },
+          );
+        }
+        ;
+        return Container();
       },
     );
   }
