@@ -31,10 +31,13 @@ class _FavoriteButtonState extends State<FavoriteButton> {
         if (state is CheckFavoriteMovieIsSaveState) {
           return IconButton(
             icon: Icon(
-              Icons.favorite,
+              state.isSaved ? Icons.favorite : Icons.favorite_border,
               color: Colors.red,
             ),
             onPressed: () {
+              state.isSaved ? context
+                  .read<FavoritesMovieBloc>()
+                  .add(DeleteFavoritesMovieEvent(widget.movie)) :
               context
                   .read<FavoritesMovieBloc>()
                   .add(AddFavoritesMovieEvent(widget.movie));
