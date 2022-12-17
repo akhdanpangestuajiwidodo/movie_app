@@ -35,5 +35,18 @@ class FavoritesMovieBloc
         emit(GetFavoritesMovieErrorState(e.toString()));
       }
     });
+
+    on<CheckFavoriteMovieIsSavedEvent>((event, emit) async {
+      try {
+        final result = await _localDataRepositories.getByTitleAndUsername(event.movie);
+        if(result == null){
+          emit(CheckFavoriteMovieIsSaveState(false));
+        }else{
+          emit(CheckFavoriteMovieIsSaveState(true));
+        }
+      } catch (e) {
+        emit(CheckFavoritesMovieErrorState(e.toString()));
+      }
+    });
   }
 }
