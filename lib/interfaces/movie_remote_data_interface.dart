@@ -3,5 +3,5 @@ import 'package:movie_app/models/movie_model.dart';
 
 abstract class MovieRemoteDataInterface{
   Future<List<MovieModel>?> getNowPlayingMovies();
-  Future<DetaiMovieModel?> getDetailMovie(int id);
+  Future<DetailMovieModel?> getDetailMovie(int id);
 }

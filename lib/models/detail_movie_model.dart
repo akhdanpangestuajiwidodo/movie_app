@@ -1,8 +1,8 @@
 import 'package:equatable/equatable.dart';
 import 'package:movie_app/models/genre_detail_movie_model.dart';
 
-class DetaiMovieModel extends Equatable {
-  DetaiMovieModel({
+class DetailMovieModel extends Equatable {
+  DetailMovieModel({
     required this.adult,
     required this.backdropPath,
     required this.budget,
@@ -48,8 +48,8 @@ class DetaiMovieModel extends Equatable {
   final double voteAverage;
   final int voteCount;
 
-  factory DetaiMovieModel.fromJson(Map<String, dynamic> json) =>
-      DetaiMovieModel(
+  factory DetailMovieModel.fromJson(Map<String, dynamic> json) =>
+      DetailMovieModel(
         adult: json["adult"],
         backdropPath: json["backdrop_path"],
         budget: json["budget"],

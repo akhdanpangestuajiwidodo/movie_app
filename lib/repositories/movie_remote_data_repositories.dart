@@ -23,10 +23,10 @@ class MovieRemoteDataRepositories implements MovieRemoteDataInterface {
   }
 
   @override
-  Future<DetaiMovieModel?> getDetailMovie(int id) async{
+  Future<DetailMovieModel?> getDetailMovie(int id) async{
     final result = await http.get(Uri.parse('$BASE_URL/$id?$API_KEY'));
     if(result.statusCode == 200){
-      return DetaiMovieModel .fromJson(jsonDecode(result.body));
+      return DetailMovieModel .fromJson(jsonDecode(result.body));
     }else{
       return null;
     }
