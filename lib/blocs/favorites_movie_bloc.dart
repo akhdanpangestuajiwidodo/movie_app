@@ -10,16 +10,15 @@ class FavoritesMovieBloc
 
   FavoritesMovieBloc(this._localDataRepositories)
       : super(FavoritesMovieInitialState()) {
-
     on<GetFavoritesMovieEvent>((event, emit) async {
       List<MovieTableModel>? favoriteList;
       try {
         emit(GetFavoritesMovieLoadingState());
-        favoriteList = await _localDataRepositories.getFavoriteMovie(event.username);
-        print(favoriteList);
-        if(favoriteList == null){
+        favoriteList =
+            await _localDataRepositories.getFavoriteMovie(event.username);
+        if (favoriteList == null) {
           emit(GetFavoritesMovieErrorState('No Has Data'));
-        }else{
+        } else {
           emit(GetFavoritesMovieHasDataState(favoriteList));
         }
       } catch (e) {
@@ -38,14 +37,21 @@ class FavoritesMovieBloc
 
     on<CheckFavoriteMovieIsSavedEvent>((event, emit) async {
       try {
-        final result = await _localDataRepositories.getByTitleAndUsername(event.movie);
-        if(result == null){
-          emit(CheckFavoriteMovieIsSaveState(false));
-        }else{
-          emit(CheckFavoriteMovieIsSaveState(true));
-        }
+        emit(CheckFavoriteMovieLoadingState());
+        final result =
+            await _localDataRepositories.getByTitleAndUsername(event.movie);
+        emit(CheckFavoriteMovieIsSaveState(result));
       } catch (e) {
         emit(CheckFavoritesMovieErrorState(e.toString()));
+      }
+    });
+
+    on<DeleteFavoritesMovieEvent>((event, emit) async {
+      try {
+        emit(DeleteFavoritesMovieLoadingState());
+        await _localDataRepositories.deleteFavoriteMovie(event.movie);
+      } catch (e) {
+        emit(GetFavoritesMovieErrorState(e.toString()));
       }
     });
   }
