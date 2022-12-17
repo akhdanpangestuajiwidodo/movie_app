@@ -43,7 +43,6 @@ class MovieLocalDataRepositories implements MovieLocalDataInterface {
 
   @override
   Future<void> addFavoriteMovie(MovieTableModel movie) async {
-    print("masuk ke addFavorite repo ${movie.username}, ${movie.title}");
     final db = await database;
       await db!.insert(
         _tbFavoriteMovie,
@@ -51,10 +50,10 @@ class MovieLocalDataRepositories implements MovieLocalDataInterface {
       );
   }
 
-  Future<dynamic> _getByTitleAndUsername(String username, String title) async {
+  Future<dynamic> getByTitleAndUsername(MovieTableModel movie) async {
     final db = await database;
     final result = await db!
-        .query(_tbFavoriteMovie, where: 'username = ? and title = ?', whereArgs: [username, title]);
+        .query(_tbFavoriteMovie, where: 'username = ? and title = ?', whereArgs: [movie.username, movie.title]);
     return result.first;
   }
 
