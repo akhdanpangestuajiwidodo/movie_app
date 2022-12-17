@@ -1,6 +1,8 @@
 import 'dart:convert';
 
 import 'package:movie_app/interfaces/movie_remote_data_interface.dart';
+import 'package:movie_app/models/detail_movie_model.dart';
+import 'package:movie_app/models/genre_detail_movie_model.dart';
 import 'package:movie_app/models/movie_model.dart';
 import 'package:http/http.dart' as http;
 
@@ -21,7 +23,12 @@ class MovieRemoteDataRepositories implements MovieRemoteDataInterface {
   }
 
   @override
-  Future<MovieModel>? getDetailMovie(int id) {
-
+  Future<DetaiMovieModel?> getDetailMovie(int id) async{
+    final result = await http.get(Uri.parse('$BASE_URL/$id?$API_KEY'));
+    if(result.statusCode == 200){
+      return DetaiMovieModel .fromJson(jsonDecode(result.body));
+    }else{
+      return null;
+    }
   }
 }
