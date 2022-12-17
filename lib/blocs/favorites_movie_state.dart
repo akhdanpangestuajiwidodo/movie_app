@@ -1,0 +1,40 @@
+import 'package:equatable/equatable.dart';
+import 'package:movie_app/models/movie_table_model.dart';
+
+class FavoritesMovieState extends Equatable {
+  @override
+  List<Object?> get props => [];
+}
+
+class FavoritesMovieInitialState extends FavoritesMovieState {}
+
+class AddFavoritesMovieLoadingState extends FavoritesMovieState {}
+
+class AddFavoritesMovieErrorState extends FavoritesMovieState {
+  final String message;
+
+  AddFavoritesMovieErrorState(this.message);
+
+  @override
+  List<Object?> get props => [message];
+}
+
+class GetFavoritesMovieLoadingState extends FavoritesMovieState {}
+
+class GetFavoritesMovieHasDataState extends FavoritesMovieState {
+  final List<MovieTableModel> movieList;
+
+  GetFavoritesMovieHasDataState(this.movieList);
+
+  @override
+  List<Object?> get props => [movieList];
+}
+
+class GetFavoritesMovieErrorState extends FavoritesMovieState {
+  final String message;
+
+  GetFavoritesMovieErrorState(this.message);
+
+  @override
+  List<Object?> get props => [message];
+}
