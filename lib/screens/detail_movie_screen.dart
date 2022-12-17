@@ -1,9 +1,11 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_app/blocs/detail_movie_bloc.dart';
 import 'package:movie_app/blocs/detail_movie_event.dart';
 import 'package:movie_app/blocs/detail_movie_state.dart';
+import 'package:movie_app/models/movie_table_model.dart';
 
 import '../widgets/favorite_button_widget.dart';
 
@@ -30,7 +32,7 @@ class _DetailMovieScreenState extends State<DetailMovieScreen> {
       body: BlocBuilder<DetailMovieBloc, DetailMovieState>(
           builder: (context, state) {
         if (state is DetailMovieLoadingState) {
-          return Center(
+          return const Center(
             child: CircularProgressIndicator(),
           );
         }
@@ -41,8 +43,12 @@ class _DetailMovieScreenState extends State<DetailMovieScreen> {
               children: <Widget>[
                 Stack(
                   children: <Widget>[
-                    Image.network(
-                        'https://image.tmdb.org/t/p/w500${state.movie.posterPath}'),
+                    CachedNetworkImage(
+                      imageUrl: 'https://image.tmdb.org/t/p/w500${state.movie.posterPath}',
+                      placeholder: (context, url) => const CircularProgressIndicator(),
+                      errorWidget: (context, url, error) => const Icon(Icons.error),
+                      fit: BoxFit.fill,
+                    ),
                     SafeArea(
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
@@ -61,7 +67,14 @@ class _DetailMovieScreenState extends State<DetailMovieScreen> {
                                 },
                               ),
                             ),
-                            const FavoriteButton(),
+                            FavoriteButton(
+                              MovieTableModel(
+                                  id: state.movie.id,
+                                  title: state.movie.title,
+                                  posterPath: state.movie.posterPath,
+                                  overview: state.movie.overview,
+                                  username: "akhdan"),
+                            ),
                           ],
                         ),
                       ),
