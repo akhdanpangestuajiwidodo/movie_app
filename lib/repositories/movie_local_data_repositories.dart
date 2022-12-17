@@ -50,11 +50,15 @@ class MovieLocalDataRepositories implements MovieLocalDataInterface {
       );
   }
 
-  Future<dynamic> getByTitleAndUsername(MovieTableModel movie) async {
+  Future<bool> getByTitleAndUsername(MovieTableModel movie) async {
     final db = await database;
     final result = await db!
         .query(_tbFavoriteMovie, where: 'username = ? and title = ?', whereArgs: [movie.username, movie.title]);
-    return result.first;
+    if(result.isNotEmpty){
+      return true;
+    }else{
+     return false;
+    }
   }
 
   @override
@@ -64,5 +68,15 @@ class MovieLocalDataRepositories implements MovieLocalDataInterface {
         .query(_tbFavoriteMovie, where: 'username = ?', whereArgs: [username]);
 
     return result.map((e) => MovieTableModel.fromJson(e)).toList();
+  }
+
+  @override
+  Future<int> deleteFavoriteMovie(MovieTableModel movie) async{
+    final db = await database;
+    return await db!.delete(
+      _tbFavoriteMovie,
+      where: 'id = ? and username = ?',
+      whereArgs: [movie.id, movie.username],
+    );
   }
 }
