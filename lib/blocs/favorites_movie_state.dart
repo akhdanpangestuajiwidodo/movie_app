@@ -39,6 +39,8 @@ class GetFavoritesMovieErrorState extends FavoritesMovieState {
   List<Object?> get props => [message];
 }
 
+class CheckFavoriteMovieLoadingState extends FavoritesMovieState {}
+
 class CheckFavoriteMovieIsSaveState extends FavoritesMovieState {
   final bool isSaved;
 
@@ -57,4 +59,13 @@ class CheckFavoritesMovieErrorState extends FavoritesMovieState {
   List<Object?> get props => [message];
 }
 
+class DeleteFavoritesMovieLoadingState extends FavoritesMovieState {}
 
+class DeleteFavoritesMovieErrorState extends FavoritesMovieState {
+  final String message;
+
+  DeleteFavoritesMovieErrorState(this.message);
+
+  @override
+  List<Object?> get props => [message];
+}
