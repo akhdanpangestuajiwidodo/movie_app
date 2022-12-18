@@ -27,7 +27,8 @@ class MovieLocalDataRepositories implements MovieLocalDataInterface {
       '$path/favorites.db',
       onCreate: (db, version) async {
         await db.execute('''CREATE TABLE $_tbFavoriteMovie (
-             id INTEGER PRIMARY KEY,
+             idMovie INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+             id INTEGER,
              title TEXT,
              overview TEXT,
              city TEXT,
@@ -50,6 +51,7 @@ class MovieLocalDataRepositories implements MovieLocalDataInterface {
       );
   }
 
+  @override
   Future<bool> getByTitleAndUsername(MovieTableModel movie) async {
     final db = await database;
     final result = await db!
