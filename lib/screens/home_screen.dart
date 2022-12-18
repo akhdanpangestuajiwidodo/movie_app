@@ -2,15 +2,28 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_app/blocs/playing_movie_bloc.dart';
+import 'package:movie_app/blocs/playing_movie_event.dart';
 import 'package:movie_app/blocs/playing_movie_state.dart';
 import 'package:movie_app/screens/favorites_screen.dart';
 
 import '../widgets/card_movie_widget.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   static const routeName = 'home_screen';
 
   const HomeScreen({Key? key}) : super(key: key);
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+
+  @override
+  void initState() {
+    super.initState();
+    context.read<PlayingMovieBloc>().add(GetPlayingMovieEvent());
+  }
 
   @override
   Widget build(BuildContext context) {
