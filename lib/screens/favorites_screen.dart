@@ -48,6 +48,10 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
               },
               itemCount: state.movieList.length,
             );
+          }else if(state is GetFavoritesMovieErrorState) {
+            return Center(
+              child: Text(state.message),
+            );
           }
           return Container();
         },
