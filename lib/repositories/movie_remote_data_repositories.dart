@@ -13,8 +13,8 @@ class MovieRemoteDataRepositories implements MovieRemoteDataInterface {
   static const BASE_URL = 'https://api.themoviedb.org/3/movie';
 
   @override
-  Future<List<MovieModel>?> getNowPlayingMovies() async {
-    final result = await http.get(Uri.parse('$BASE_URL/now_playing?$API_KEY'));
+  Future<List<MovieModel>?> getNowPlayingMovies(int page) async {
+    final result = await http.get(Uri.parse('$BASE_URL/now_playing?$API_KEY&page=$page'));
     if (result.statusCode == 200) {
       return MovieResponseModel.fromJson(jsonDecode(result.body)).movieList;
     }else{

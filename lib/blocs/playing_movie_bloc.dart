@@ -15,7 +15,7 @@ class PlayingMovieBloc extends Bloc<PlayingMovieEvent, PlayingMovieState> {
       List<MovieModel>? movieList;
       try {
         emit(PlayingMovieLoadingState());
-        movieList = await _movieRemoteDataRepositories.getNowPlayingMovies();
+        movieList = await _movieRemoteDataRepositories.getNowPlayingMovies(1);
         if (movieList == null) {
           emit(PlayingMovieErrorState('No Has Data'));
         } else {
