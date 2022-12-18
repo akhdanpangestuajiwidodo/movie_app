@@ -64,7 +64,7 @@ class _DetailMovieScreenState extends State<DetailMovieScreen> {
                                   color: Colors.white,
                                 ),
                                 onPressed: () {
-                                  Navigator.pushNamed(context, HomeScreen.routeName);
+                                  Navigator.pop(context);
                                 },
                               ),
                             ),
