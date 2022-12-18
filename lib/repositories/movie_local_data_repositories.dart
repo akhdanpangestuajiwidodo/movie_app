@@ -62,11 +62,10 @@ class MovieLocalDataRepositories implements MovieLocalDataInterface {
   }
 
   @override
-  Future<List<MovieTableModel>?> getFavoriteMovie(String username) async {
+  Future<List<MovieTableModel>> getFavoriteMovie(String username) async {
     final db = await database;
     List<Map<String, dynamic>> result = await db!
         .query(_tbFavoriteMovie, where: 'username = ?', whereArgs: [username]);
-
     return result.map((e) => MovieTableModel.fromJson(e)).toList();
   }
 

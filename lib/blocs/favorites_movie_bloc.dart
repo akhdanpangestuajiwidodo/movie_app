@@ -11,12 +11,12 @@ class FavoritesMovieBloc
   FavoritesMovieBloc(this._localDataRepositories)
       : super(FavoritesMovieInitialState()) {
     on<GetFavoritesMovieEvent>((event, emit) async {
-      List<MovieTableModel>? favoriteList;
+      List<MovieTableModel> favoriteList;
       try {
         emit(GetFavoritesMovieLoadingState());
         favoriteList =
             await _localDataRepositories.getFavoriteMovie(event.username);
-        if (favoriteList == null) {
+        if (favoriteList.isEmpty) {
           emit(GetFavoritesMovieErrorState('No Has Data'));
         } else {
           emit(GetFavoritesMovieHasDataState(favoriteList));
