@@ -30,6 +30,7 @@ class FavoritesMovieBloc
       try {
         emit(AddFavoritesMovieLoadingState());
         await _localDataRepositories.addFavoriteMovie(event.movie);
+        add(CheckFavoriteMovieIsSavedEvent(event.movie));
       } catch (e) {
         emit(GetFavoritesMovieErrorState(e.toString()));
       }
@@ -50,6 +51,7 @@ class FavoritesMovieBloc
       try {
         emit(DeleteFavoritesMovieLoadingState());
         await _localDataRepositories.deleteFavoriteMovie(event.movie);
+        add(CheckFavoriteMovieIsSavedEvent(event.movie));
       } catch (e) {
         emit(GetFavoritesMovieErrorState(e.toString()));
       }
