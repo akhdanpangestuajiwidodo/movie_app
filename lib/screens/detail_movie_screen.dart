@@ -6,6 +6,7 @@ import 'package:movie_app/blocs/detail_movie_bloc.dart';
 import 'package:movie_app/blocs/detail_movie_event.dart';
 import 'package:movie_app/blocs/detail_movie_state.dart';
 import 'package:movie_app/models/movie_table_model.dart';
+import 'package:movie_app/screens/home_screen.dart';
 
 import '../widgets/favorite_button_widget.dart';
 
@@ -63,7 +64,7 @@ class _DetailMovieScreenState extends State<DetailMovieScreen> {
                                   color: Colors.white,
                                 ),
                                 onPressed: () {
-                                  Navigator.pop(context);
+                                  Navigator.pushNamed(context, HomeScreen.routeName);
                                 },
                               ),
                             ),
