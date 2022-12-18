@@ -7,4 +7,8 @@ class PlayingMovieEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class GetPlayingMovieEvent extends PlayingMovieEvent {}
+class GetPlayingMovieEvent extends PlayingMovieEvent {
+  final int page;
+
+  GetPlayingMovieEvent(this.page);
+}

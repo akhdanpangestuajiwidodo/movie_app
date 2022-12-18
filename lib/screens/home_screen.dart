@@ -18,11 +18,27 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  int _currentPage = 1;
+  final _scrollController = ScrollController();
 
   @override
   void initState() {
+    context.read<PlayingMovieBloc>().add(GetPlayingMovieEvent(_currentPage));
     super.initState();
-    context.read<PlayingMovieBloc>().add(GetPlayingMovieEvent());
+    _scrollController.addListener(() {
+      if (_scrollController.position.pixels ==
+          _scrollController.position.maxScrollExtent) {
+        _currentPage = _currentPage + 1;
+        context.read<PlayingMovieBloc>().add(
+            GetPlayingMovieEvent(_currentPage));
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
   }
 
   @override
@@ -66,12 +82,14 @@ class _HomeScreenState extends State<HomeScreen> {
             return ListView.separated(
               padding: const EdgeInsets.all(8),
               itemBuilder: (BuildContext context, int index) {
-                return CardMovieWidget(state.movieList[index]);
+                  // print('$index/${state.movieList.length}');
+                  return CardMovieWidget(state.movieList[index]);
               },
               separatorBuilder: (BuildContext context, int index) {
                 return const Divider();
               },
               itemCount: state.movieList.length,
+              controller: _scrollController,
             );
           }
           if (state is PlayingMovieErrorState) {
