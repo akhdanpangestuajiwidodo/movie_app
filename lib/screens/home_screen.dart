@@ -6,6 +6,7 @@ import 'package:movie_app/blocs/playing_movie_event.dart';
 import 'package:movie_app/blocs/playing_movie_state.dart';
 import 'package:movie_app/screens/favorites_screen.dart';
 
+import '../models/movie_model.dart';
 import '../widgets/card_movie_widget.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -18,19 +19,17 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  int _currentPage = 1;
   final _scrollController = ScrollController();
+  List<MovieModel> movieList = [];
 
   @override
   void initState() {
-    context.read<PlayingMovieBloc>().add(GetPlayingMovieEvent(_currentPage));
     super.initState();
     _scrollController.addListener(() {
       if (_scrollController.position.pixels ==
           _scrollController.position.maxScrollExtent) {
-        _currentPage = _currentPage + 1;
         context.read<PlayingMovieBloc>().add(
-            GetPlayingMovieEvent(_currentPage));
+            GetPlayingMovieEvent());
       }
     });
   }
@@ -73,31 +72,30 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       body: BlocBuilder<PlayingMovieBloc, PlayingMovieState>(
         builder: (context, state) {
-          if (state is PlayingMovieLoadingState) {
+          if (state is PlayingMovieLoadingState && movieList.isEmpty) {
             return const Center(
               child: CircularProgressIndicator(),
             );
           }
           if (state is PlayingMovieHasDataState) {
-            return ListView.separated(
-              padding: const EdgeInsets.all(8),
-              itemBuilder: (BuildContext context, int index) {
-                  // print('$index/${state.movieList.length}');
-                  return CardMovieWidget(state.movieList[index]);
-              },
-              separatorBuilder: (BuildContext context, int index) {
-                return const Divider();
-              },
-              itemCount: state.movieList.length,
-              controller: _scrollController,
-            );
+            movieList.addAll(state.movieList);
           }
           if (state is PlayingMovieErrorState) {
             return Center(
               child: Text(state.message.toString()),
             );
           }
-          return Container();
+          return ListView.separated(
+            padding: const EdgeInsets.all(8),
+            itemBuilder: (BuildContext context, int index) {
+              return CardMovieWidget(movieList[index]);
+            },
+            separatorBuilder: (BuildContext context, int index) {
+              return const Divider();
+            },
+            itemCount: movieList.length,
+            controller: _scrollController,
+          );
         },
       ),
     );

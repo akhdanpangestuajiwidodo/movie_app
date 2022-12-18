@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider<PlayingMovieBloc>(
             create: (BuildContext context) =>
-                PlayingMovieBloc(MovieRemoteDataRepositories())),
+                PlayingMovieBloc(MovieRemoteDataRepositories())..add(GetPlayingMovieEvent())),
         BlocProvider<DetailMovieBloc>(
             create: (BuildContext context) =>
             DetailMovieBloc(MovieRemoteDataRepositories())),

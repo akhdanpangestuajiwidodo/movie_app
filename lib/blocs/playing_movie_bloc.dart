@@ -7,19 +7,18 @@ import 'package:movie_app/models/movie_model.dart';
 import 'package:movie_app/repositories/movie_remote_data_repositories.dart';
 
 class PlayingMovieBloc extends Bloc<PlayingMovieEvent, PlayingMovieState> {
+  int page = 1;
   final MovieRemoteDataRepositories _movieRemoteDataRepositories;
 
   PlayingMovieBloc(this._movieRemoteDataRepositories)
       : super(PlayingMovieInitialState()) {
     on<GetPlayingMovieEvent>((event, emit) async {
-      List<MovieModel> movieList = [];
+      List<MovieModel>? movieList;
       try {
         emit(PlayingMovieLoadingState());
-        final result = await _movieRemoteDataRepositories.getNowPlayingMovies(event.page);
-        if(result != null){
-          movieList+=result;
-        }
-        if (movieList.isEmpty) {
+        movieList = await _movieRemoteDataRepositories.getNowPlayingMovies(page);
+        page++;
+        if (movieList == null) {
           emit(PlayingMovieErrorState('No Has Data'));
         } else {
           emit(PlayingMovieHasDataState(movieList));
