@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_app/blocs/auth_bloc.dart';
 import 'package:movie_app/blocs/auth_event.dart';
 import 'package:movie_app/blocs/auth_state.dart';
+import 'package:movie_app/screens/home_screen.dart';
 
 class SignUpScreen extends StatefulWidget {
   static const routeName = 'sign_up_screen';
@@ -33,7 +34,15 @@ class _SignUpScreenState extends State<SignUpScreen> {
         title: const Text("SignUp"),
       ),
       body: BlocConsumer<AuthBloc, AuthState>(
-        listener: (context, state) {},
+        listener: (context, state) {
+          if (state is AuthenticatedState) {
+            Navigator.pushNamed(context, HomeScreen.routeName);
+          }
+          if (state is AuthErrorState) {
+            ScaffoldMessenger.of(context)
+                .showSnackBar(SnackBar(content: Text(state.error)));
+          }
+        },
         builder: (context, state) {
           if (state is AuthLoadingState) {
             return const Center(
