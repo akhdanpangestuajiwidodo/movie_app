@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -43,11 +44,18 @@ class MyApp extends StatelessWidget {
             create: (BuildContext context) => AuthBloc(AuthRepositories())),
       ],
       child: MaterialApp(
-        title: 'MovieApp',
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
+        title: 'Movie App',
+        home: StreamBuilder<User?>(
+          stream: FirebaseAuth.instance.authStateChanges(),
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              print('${snapshot.hasData}');
+              return const HomeScreen();
+            }
+
+            return SignInScreen();
+          },
         ),
-        initialRoute: SignUpScreen.routeName,
         routes: _router,
       ),
     );
