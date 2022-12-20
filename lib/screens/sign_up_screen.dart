@@ -1,3 +1,4 @@
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_app/blocs/auth_bloc.dart';
@@ -60,7 +61,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             border: OutlineInputBorder(),
                           ),
                           autovalidateMode: AutovalidateMode.onUserInteraction,
-                          validator: (value) {},
+                          validator: (value) {
+                            return value != null &&
+                                    !EmailValidator.validate(value)
+                                ? 'Enter valid email'
+                                : null;
+                          },
                         ),
                         const SizedBox(
                           height: 10,
@@ -84,7 +90,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         SizedBox(
                           width: MediaQuery.of(context).size.width * 0.7,
                           child: ElevatedButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              _authenticatedWithEmailAndPassword(context);
+                            },
                             child: const Text('Sign Up'),
                           ),
                         )
@@ -99,7 +107,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 ),
                 const Text("Or"),
                 IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    _autenticateWithGoogle(context);
+                  },
                   icon: Image.network(
                     "https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/1200px-Google_%22G%22_Logo.svg.png",
                     height: 30,
