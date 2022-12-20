@@ -2,11 +2,15 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:movie_app/blocs/auth_event.dart';
+import 'package:movie_app/blocs/auth_state.dart';
 import 'package:movie_app/blocs/playing_movie_bloc.dart';
 import 'package:movie_app/blocs/playing_movie_event.dart';
 import 'package:movie_app/blocs/playing_movie_state.dart';
 import 'package:movie_app/screens/favorites_screen.dart';
+import 'package:movie_app/screens/sign_in_screen.dart';
 
+import '../blocs/auth_bloc.dart';
 import '../models/movie_model.dart';
 import '../widgets/card_movie_widget.dart';
 
@@ -44,51 +48,68 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     final user = FirebaseAuth.instance.currentUser!;
     return Scaffold(
-      drawer: Drawer(
-        child: SafeArea(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              ConstrainedBox(
-                constraints: const BoxConstraints(minWidth: double.infinity),
-                child: Container(
-                  decoration: const BoxDecoration(
-                    color: Colors.blue,
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(12.0),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        CircleAvatar(
-                          backgroundImage: NetworkImage('${user.photoURL}'),
-                        ),
-                        const SizedBox(height: 10),
-                        Text('${user.displayName}'),
-                        const SizedBox(height: 4),
-                        Text('${user.email}'),
-                      ],
+      drawer: BlocListener<AuthBloc, AuthState>(
+        listener: (context, state) {
+          if (state is UnAuthenticatedState) {
+            Navigator.of(context).pushAndRemoveUntil(
+              MaterialPageRoute(builder: (context) => SignInScreen()),
+              (route) => false,
+            );
+          }
+        },
+        child: Drawer(
+          child: SafeArea(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                ConstrainedBox(
+                  constraints: const BoxConstraints(minWidth: double.infinity),
+                  child: Container(
+                    decoration: const BoxDecoration(
+                      color: Colors.blue,
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(12.0),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          CircleAvatar(
+                            backgroundImage: NetworkImage('${user.photoURL}'),
+                          ),
+                          const SizedBox(height: 10),
+                          Text('${user.displayName}'),
+                          const SizedBox(height: 4),
+                          Text('${user.email}'),
+                        ],
+                      ),
                     ),
                   ),
                 ),
-              ),
-              ListTile(
-                leading: Icon(Icons.movie),
-                title: Text('Movies'),
-                onTap: () {
-                  Navigator.pop(context);
-                },
-              ),
-              ListTile(
-                leading: Icon(Icons.save),
-                title: Text('Favorites'),
-                onTap: () {
-                  Navigator.pushNamed(context, FavoriteScreen.routeName);
-                },
-              ),
-            ],
+                ListTile(
+                  leading: Icon(Icons.movie),
+                  title: Text('Movies'),
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
+                ),
+                ListTile(
+                  leading: Icon(Icons.save),
+                  title: Text('Favorites'),
+                  onTap: () {
+                    Navigator.pushNamed(context, FavoriteScreen.routeName);
+                  },
+                ),
+                ListTile(
+                  leading: Icon(Icons.logout),
+                  title: Text('Logout'),
+                  onTap: () {
+                    context.read<AuthBloc>().add(SignOutEvent());
+                  },
+                ),
+              ],
+            ),
           ),
         ),
       ),
