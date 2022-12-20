@@ -21,7 +21,13 @@ class AuthRepositories implements AuthInterface {
   Future<void> signInWithGoogle() async {}
 
   @override
-  Future<void> signOut() async {}
+  Future<void> signOut() async {
+    try {
+      await _firebaseAuth.signOut();
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
 
   @override
   Future<void> signUp(String email, String password) async {
