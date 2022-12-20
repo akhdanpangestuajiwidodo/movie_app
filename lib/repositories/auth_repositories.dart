@@ -15,6 +15,8 @@ class AuthRepositories implements AuthInterface {
       } else if (e.code == 'wrong-password') {
         throw Exception('The password is wrong');
       }
+    } catch (e) {
+      throw Exception(e.toString());
     }
   }
 
@@ -32,7 +34,7 @@ class AuthRepositories implements AuthInterface {
 
       await FirebaseAuth.instance.signInWithCredential(credential);
     } catch (e) {
-      throw Exception(e);
+      throw Exception(e.toString());
     }
   }
 
@@ -41,7 +43,7 @@ class AuthRepositories implements AuthInterface {
     try {
       await _firebaseAuth.signOut();
     } catch (e) {
-      throw Exception(e);
+      throw Exception(e.toString());
     }
   }
 
