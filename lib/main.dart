@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_app/blocs/detail_movie_bloc.dart';
@@ -10,7 +11,9 @@ import 'package:movie_app/screens/detail_movie_screen.dart';
 import 'package:movie_app/screens/favorites_screen.dart';
 import 'package:movie_app/screens/home_screen.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(const MyApp());
 }
 
