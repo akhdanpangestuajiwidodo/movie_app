@@ -5,7 +5,17 @@ class AuthRepositories implements AuthInterface {
   final _firebaseAuth = FirebaseAuth.instance;
 
   @override
-  Future<void> signIn(String email, String password) async {}
+  Future<void> signIn(String email, String password) async {
+    try {
+      await FirebaseAuth.instance.signInWithEmailAndPassword(email: email, password: password);
+    } on FirebaseAuthException catch (e){
+      if (e.code == 'user-not-found') {
+        throw Exception('User not found');
+      } else if (e.code == 'wrong-password') {
+        throw Exception('The password is wrong');
+      }
+    }
+  }
 
   @override
   Future<void> signInWithGoogle() async {}
