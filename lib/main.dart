@@ -12,6 +12,7 @@ import 'package:movie_app/repositories/movie_remote_data_repositories.dart';
 import 'package:movie_app/screens/detail_movie_screen.dart';
 import 'package:movie_app/screens/favorites_screen.dart';
 import 'package:movie_app/screens/home_screen.dart';
+import 'package:movie_app/screens/sign_up_screen.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -45,7 +46,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        initialRoute: HomeScreen.routeName,
+        initialRoute: SignUpScreen.routeName,
         routes: _router,
       ),
     );
@@ -55,6 +56,7 @@ class MyApp extends StatelessWidget {
         HomeScreen.routeName: (_) => const HomeScreen(),
         DetailMovieScreen.routeName: (context) => DetailMovieScreen(
             id: ModalRoute.of(context)?.settings.arguments as int),
-        FavoriteScreen.routeName: (context) => FavoriteScreen(),
+        FavoriteScreen.routeName: (context) => const FavoriteScreen(),
+        SignUpScreen.routeName: (context) => const SignUpScreen(),
       };
 }
