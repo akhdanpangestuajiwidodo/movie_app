@@ -60,7 +60,7 @@ class _SignInScreenState extends State<SignInScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       const Text(
-                        "Sign Up",
+                        "Sign Ip",
                         style: TextStyle(
                           fontSize: 38,
                           fontWeight: FontWeight.bold,
