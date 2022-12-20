@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:movie_app/blocs/auth_bloc.dart';
+import 'package:movie_app/blocs/auth_event.dart';
 
 class SignUpScreen extends StatefulWidget {
   static const routeName = 'sign_up_screen';
@@ -109,5 +112,16 @@ class _SignUpScreenState extends State<SignUpScreen> {
         ),
       ),
     );
+  }
+
+  void _authenticatedWithEmailAndPassword(context) {
+    if (_formKey.currentState!.validate()) {
+      BlocProvider.of<AuthBloc>(context)
+          .add(SignUpEvent(_emailController.text, _passwordController.text));
+    }
+  }
+
+  void _autenticateWithGoogle(context) {
+    BlocProvider.of<AuthBloc>(context).add(GoogleSignInEvent());
   }
 }
