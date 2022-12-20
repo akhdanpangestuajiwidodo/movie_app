@@ -1,10 +1,12 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:movie_app/blocs/auth_bloc.dart';
 import 'package:movie_app/blocs/detail_movie_bloc.dart';
 import 'package:movie_app/blocs/favorites_movie_bloc.dart';
 import 'package:movie_app/blocs/playing_movie_bloc.dart';
 import 'package:movie_app/blocs/playing_movie_event.dart';
+import 'package:movie_app/repositories/auth_repositories.dart';
 import 'package:movie_app/repositories/movie_local_data_repositories.dart';
 import 'package:movie_app/repositories/movie_remote_data_repositories.dart';
 import 'package:movie_app/screens/detail_movie_screen.dart';
@@ -27,13 +29,16 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider<PlayingMovieBloc>(
             create: (BuildContext context) =>
-                PlayingMovieBloc(MovieRemoteDataRepositories())..add(GetPlayingMovieEvent())),
+                PlayingMovieBloc(MovieRemoteDataRepositories())
+                  ..add(GetPlayingMovieEvent())),
         BlocProvider<DetailMovieBloc>(
             create: (BuildContext context) =>
-            DetailMovieBloc(MovieRemoteDataRepositories())),
+                DetailMovieBloc(MovieRemoteDataRepositories())),
         BlocProvider<FavoritesMovieBloc>(
             create: (BuildContext context) =>
                 FavoritesMovieBloc(MovieLocalDataRepositories())),
+        BlocProvider<AuthBloc>(
+            create: (BuildContext context) => AuthBloc(AuthRepositories())),
       ],
       child: MaterialApp(
         title: 'MovieApp',
@@ -48,7 +53,8 @@ class MyApp extends StatelessWidget {
 
   Map<String, WidgetBuilder> get _router => {
         HomeScreen.routeName: (_) => const HomeScreen(),
-        DetailMovieScreen.routeName: (context) => DetailMovieScreen(id: ModalRoute.of(context)?.settings.arguments as int),
+        DetailMovieScreen.routeName: (context) => DetailMovieScreen(
+            id: ModalRoute.of(context)?.settings.arguments as int),
         FavoriteScreen.routeName: (context) => FavoriteScreen(),
       };
 }
