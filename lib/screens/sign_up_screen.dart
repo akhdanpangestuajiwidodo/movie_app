@@ -5,6 +5,7 @@ import 'package:movie_app/blocs/auth_bloc.dart';
 import 'package:movie_app/blocs/auth_event.dart';
 import 'package:movie_app/blocs/auth_state.dart';
 import 'package:movie_app/screens/home_screen.dart';
+import 'package:movie_app/screens/sign_in_screen.dart';
 
 class SignUpScreen extends StatefulWidget {
   static const routeName = 'sign_up_screen';
@@ -123,7 +124,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       ),
                       const Text("Already have an account?"),
                       OutlinedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.pushNamed(context, SignInScreen.routeName);
+                        },
                         child: const Text("Sign In"),
                       ),
                       const Text("Or"),

@@ -12,6 +12,7 @@ import 'package:movie_app/repositories/movie_remote_data_repositories.dart';
 import 'package:movie_app/screens/detail_movie_screen.dart';
 import 'package:movie_app/screens/favorites_screen.dart';
 import 'package:movie_app/screens/home_screen.dart';
+import 'package:movie_app/screens/sign_in_screen.dart';
 import 'package:movie_app/screens/sign_up_screen.dart';
 
 Future<void> main() async {
@@ -58,5 +59,6 @@ class MyApp extends StatelessWidget {
             id: ModalRoute.of(context)?.settings.arguments as int),
         FavoriteScreen.routeName: (context) => const FavoriteScreen(),
         SignUpScreen.routeName: (context) => const SignUpScreen(),
+        SignInScreen.routeName: (context) => const SignInScreen(),
       };
 }
