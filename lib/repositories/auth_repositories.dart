@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:movie_app/interfaces/auth_interface.dart';
 
 class AuthRepositories implements AuthInterface {
@@ -18,7 +19,22 @@ class AuthRepositories implements AuthInterface {
   }
 
   @override
-  Future<void> signInWithGoogle() async {}
+  Future<void> signInWithGoogle() async {
+    try {
+      final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+
+      final GoogleSignInAuthentication? googleAuth = await googleUser?.authentication;
+
+      final credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth?.accessToken,
+        idToken: googleAuth?.idToken,
+      );
+
+      await FirebaseAuth.instance.signInWithCredential(credential);
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
 
   @override
   Future<void> signOut() async {
