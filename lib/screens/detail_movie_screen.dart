@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -21,6 +22,8 @@ class DetailMovieScreen extends StatefulWidget {
 }
 
 class _DetailMovieScreenState extends State<DetailMovieScreen> {
+  final user = FirebaseAuth.instance.currentUser!;
+
   @override
   void initState() {
     super.initState();
@@ -74,7 +77,7 @@ class _DetailMovieScreenState extends State<DetailMovieScreen> {
                                   title: state.movie.title,
                                   posterPath: state.movie.posterPath,
                                   overview: state.movie.overview,
-                                  username: "akhdan"),
+                                  username: user.displayName!),
                             ),
                           ],
                         ),

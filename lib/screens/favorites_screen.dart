@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -17,11 +18,11 @@ class FavoriteScreen extends StatefulWidget {
 }
 
 class _FavoriteScreenState extends State<FavoriteScreen> {
-  
+  final user = FirebaseAuth.instance.currentUser!;
   @override
   void initState() {
     super.initState();
-    context.read<FavoritesMovieBloc>().add(GetFavoritesMovieEvent("akhdan"));
+    context.read<FavoritesMovieBloc>().add(GetFavoritesMovieEvent(user.displayName!));
   }
   
   @override
@@ -38,19 +39,26 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
             );
           }
           if (state is GetFavoritesMovieHasDataState) {
-            return ListView.separated(
-              padding: const EdgeInsets.all(8),
-              itemBuilder: (BuildContext context, int index) {
-                return CardFavoriteWidget(state.movieList[index]);
-              },
-              separatorBuilder: (BuildContext context, int index) {
-                return const Divider();
-              },
-              itemCount: state.movieList.length,
+            return Column(
+              children: [
+                Text('Username: ${user.displayName}'),
+                Expanded(
+                  child: ListView.separated(
+                    padding: const EdgeInsets.all(8),
+                    itemBuilder: (BuildContext context, int index) {
+                      return CardFavoriteWidget(state.movieList[index]);
+                    },
+                    separatorBuilder: (BuildContext context, int index) {
+                      return const Divider();
+                    },
+                    itemCount: state.movieList.length,
+                  ),
+                ),
+              ],
             );
           }else if(state is GetFavoritesMovieErrorState) {
             return Center(
-              child: Text(state.message),
+              child: Text('${user.displayName}, ${state.message}'),
             );
           }
           return Container();
