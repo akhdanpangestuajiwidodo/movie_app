@@ -6,8 +6,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_app/blocs/detail_movie_bloc.dart';
 import 'package:movie_app/blocs/detail_movie_event.dart';
 import 'package:movie_app/blocs/detail_movie_state.dart';
+import 'package:movie_app/models/genre_detail_movie_model.dart';
 import 'package:movie_app/models/movie_table_model.dart';
-import 'package:movie_app/screens/home_screen.dart';
 
 import '../widgets/favorite_button_widget.dart';
 
@@ -60,7 +60,7 @@ class _DetailMovieScreenState extends State<DetailMovieScreen> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             CircleAvatar(
-                              backgroundColor: Colors.grey,
+                              backgroundColor: Colors.indigo,
                               child: IconButton(
                                 icon: const Icon(
                                   Icons.arrow_back,
@@ -86,25 +86,60 @@ class _DetailMovieScreenState extends State<DetailMovieScreen> {
                   ],
                 ),
                 Container(
-                  margin: const EdgeInsets.only(top: 16.0),
-                  child: Text(
-                    state.movie.originalTitle,
-                    textAlign: TextAlign.center,
-                    style: const TextStyle(
-                      fontSize: 30.0,
-                      fontFamily: 'Staatliches',
-                    ),
+                  padding: EdgeInsets.only(left: 12.0, right: 12.0, top: 12.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        state.movie.originalTitle,
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(
+                            color: Color(0xFFE8E8EA),
+                            fontSize: 24.0,
+                            fontWeight: FontWeight.w500),
+                      ),
+                      Row(
+                        children: [
+                          const Icon(
+                            Icons.star,
+                            color: Colors.yellow,
+                            size: 20,
+                          ),
+                          const SizedBox(width: 4),
+                          Text(
+                            '${state.movie.voteAverage}',
+                            style: const TextStyle(
+                                color: Color(0xFF4D577F),
+                                fontSize: 16.0,
+                                fontWeight: FontWeight.w500),
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
                 ),
+                SizedBox(height: 8.0,),
                 Container(
-                  padding: const EdgeInsets.all(16.0),
+                  padding: EdgeInsets.only(left: 12.0, right: 12.0),
+                  child: Text(
+                    'Release: ${state.movie.releaseDate}',
+                    textAlign: TextAlign.start,
+                    style: const TextStyle(
+                        color: Color(0xFF4D577F),
+                        fontSize: 14.0,
+                        fontWeight: FontWeight.w400),
+                  ),
+                ),
+                const SizedBox(height: 14.0),
+                Container(
+                  padding: EdgeInsets.only(left: 12.0, right: 12.0),
                   child: Text(
                     state.movie.overview,
-                    textAlign: TextAlign.center,
+                    textAlign: TextAlign.start,
                     style: const TextStyle(
-                      fontSize: 16.0,
-                      fontFamily: 'Oxygen',
-                    ),
+                        color: Colors.grey,
+                        fontSize: 15.0,
+                        fontWeight: FontWeight.w400),
                   ),
                 ),
               ],
@@ -120,4 +155,18 @@ class _DetailMovieScreenState extends State<DetailMovieScreen> {
       }),
     );
   }
+
+  String _showGenres(List<GenreDetailMovieModel> genres) {
+    String result = '';
+    for (var genre in genres) {
+      result += genre.name + ', ';
+    }
+
+    if (result.isEmpty) {
+      return result;
+    }
+
+    return result.substring(0, result.length - 2);
+  }
+
 }
