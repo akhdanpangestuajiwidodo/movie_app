@@ -70,7 +70,10 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
             );
           } else if (state is GetFavoritesMovieErrorState) {
             return Center(
-              child: Text('${user.displayName}, ${state.message}'),
+              child: Text('${user.displayName}, ${state.message}', style: const TextStyle(
+                  color: Color(0xFFE8E8EA),
+                  fontSize: 18.0,
+                  fontWeight: FontWeight.w500),),
             );
           }
           return Container();
