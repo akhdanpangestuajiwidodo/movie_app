@@ -12,7 +12,7 @@ class CardFavoriteWidget extends StatelessWidget{
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Navigator.pushNamed(context, DetailMovieScreen.routeName, arguments: movie.id);
+        Navigator.pushReplacementNamed(context, DetailMovieScreen.routeName, arguments: movie.id);
       },
       child: Card(
         semanticContainer: true,

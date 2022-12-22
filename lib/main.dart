@@ -45,15 +45,18 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         title: 'Movie App',
+        theme: ThemeData(
+          primarySwatch: Colors.indigo,
+          scaffoldBackgroundColor: const Color(0xFF1F233F),
+        ),
         home: StreamBuilder<User?>(
           stream: FirebaseAuth.instance.authStateChanges(),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
-              print('${snapshot.hasData}');
               return const HomeScreen();
             }
 
-            return SignInScreen();
+            return const SignInScreen();
           },
         ),
         routes: _router,
