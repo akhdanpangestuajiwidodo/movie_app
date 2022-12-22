@@ -17,6 +17,7 @@ class CardMovieWidget extends StatelessWidget{
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
         child: Container(
+          padding: const EdgeInsets.only(right: 8.0),
           height: 180.0,
           decoration: const BoxDecoration(
             color: Color(0xFF12172F),
