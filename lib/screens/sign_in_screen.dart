@@ -60,8 +60,9 @@ class _SignInScreenState extends State<SignInScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       const Text(
-                        "Sign Ip",
+                        "Sign In",
                         style: TextStyle(
+                          color: Color(0xFFE8E8EA),
                           fontSize: 38,
                           fontWeight: FontWeight.bold,
                         ),
@@ -75,16 +76,31 @@ class _SignInScreenState extends State<SignInScreen> {
                           child: Column(
                             children: [
                               TextFormField(
+                                style: const TextStyle(
+                                  color: Color(0xFFE8E8EA),
+                                ),
                                 controller: _emailController,
                                 decoration: const InputDecoration(
-                                  hintText: "Email",
-                                  border: OutlineInputBorder(),
+                                  hintText: 'Email',
+                                  hintStyle: TextStyle(
+                                    color: Color(0xFFE8E8EA),
+                                  ),
+                                  enabledBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: Color(0xFFE8E8EA),
+                                    ),
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: Color(0xFFE8E8EA),
+                                    ),
+                                  ),
                                 ),
                                 autovalidateMode:
-                                AutovalidateMode.onUserInteraction,
+                                    AutovalidateMode.onUserInteraction,
                                 validator: (value) {
                                   return value != null &&
-                                      !EmailValidator.validate(value)
+                                          !EmailValidator.validate(value)
                                       ? 'Enter valid email'
                                       : null;
                                 },
@@ -95,11 +111,23 @@ class _SignInScreenState extends State<SignInScreen> {
                               TextFormField(
                                 controller: _passwordController,
                                 decoration: const InputDecoration(
-                                  hintText: "Password",
-                                  border: OutlineInputBorder(),
+                                  hintText: 'Password',
+                                  hintStyle: TextStyle(
+                                    color: Color(0xFFE8E8EA),
+                                  ),
+                                  enabledBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: Color(0xFFE8E8EA),
+                                    ),
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: Color(0xFFE8E8EA),
+                                    ),
+                                  ),
                                 ),
                                 autovalidateMode:
-                                AutovalidateMode.onUserInteraction,
+                                    AutovalidateMode.onUserInteraction,
                                 validator: (value) {
                                   return value != null && value.length < 6
                                       ? "Enter min. 6 characters"
@@ -132,12 +160,20 @@ class _SignInScreenState extends State<SignInScreen> {
                           width: 30,
                         ),
                       ),
-                      const Text("Don't have an account?"),
+                      const Text(
+                        "Don't have an account?",
+                        style: TextStyle(
+                          color: Color(0xFFE8E8EA),
+                        ),
+                      ),
                       OutlinedButton(
                         onPressed: () {
                           Navigator.pushNamed(context, SignUpScreen.routeName);
                         },
-                        child: const Text("Sign Un"),
+                        style: OutlinedButton.styleFrom(
+                          side: const BorderSide(color: Colors.indigo),
+                        ),
+                        child: const Text("Sign Up"),
                       ),
                     ],
                   ),

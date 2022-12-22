@@ -62,6 +62,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       const Text(
                         "Sign Up",
                         style: TextStyle(
+                          color: Color(0xFFE8E8EA),
                           fontSize: 38,
                           fontWeight: FontWeight.bold,
                         ),
@@ -77,8 +78,20 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               TextFormField(
                                 controller: _emailController,
                                 decoration: const InputDecoration(
-                                  hintText: "Email",
-                                  border: OutlineInputBorder(),
+                                  hintText: 'Email',
+                                  hintStyle: TextStyle(
+                                    color: Color(0xFFE8E8EA),
+                                  ),
+                                  enabledBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: Color(0xFFE8E8EA),
+                                    ),
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: Color(0xFFE8E8EA),
+                                    ),
+                                  ),
                                 ),
                                 autovalidateMode:
                                     AutovalidateMode.onUserInteraction,
@@ -95,8 +108,20 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               TextFormField(
                                 controller: _passwordController,
                                 decoration: const InputDecoration(
-                                  hintText: "Password",
-                                  border: OutlineInputBorder(),
+                                  hintText: 'Password',
+                                  hintStyle: TextStyle(
+                                    color: Color(0xFFE8E8EA),
+                                  ),
+                                  enabledBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: Color(0xFFE8E8EA),
+                                    ),
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: Color(0xFFE8E8EA),
+                                    ),
+                                  ),
                                 ),
                                 autovalidateMode:
                                     AutovalidateMode.onUserInteraction,
@@ -122,14 +147,27 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           ),
                         ),
                       ),
-                      const Text("Already have an account?"),
+                      const Text(
+                        "Already have an account?",
+                        style: TextStyle(
+                          color: Color(0xFFE8E8EA),
+                        ),
+                      ),
                       OutlinedButton(
                         onPressed: () {
                           Navigator.pushNamed(context, SignInScreen.routeName);
                         },
+                        style: OutlinedButton.styleFrom(
+                          side: const BorderSide(color: Colors.indigo),
+                        ),
                         child: const Text("Sign In"),
                       ),
-                      const Text("Or"),
+                      const Text(
+                        "Or",
+                        style: TextStyle(
+                          color: Color(0xFFE8E8EA),
+                        ),
+                      ),
                       IconButton(
                         onPressed: () {
                           _autenticateWithGoogle(context);
