@@ -76,9 +76,6 @@ class _HomeScreenState extends State<HomeScreen> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          CircleAvatar(
-                            backgroundImage: NetworkImage('${user.photoURL}'),
-                          ),
                           const SizedBox(height: 10),
                           Text(
                             '${user.displayName}',
