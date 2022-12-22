@@ -20,6 +20,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
+  final _usernameController = TextEditingController();
 
   @override
   void dispose() {
@@ -75,6 +76,35 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           key: _formKey,
                           child: Column(
                             children: [
+                              TextFormField(
+                                controller: _usernameController,
+                                decoration: const InputDecoration(
+                                  hintText: 'Username',
+                                  hintStyle: TextStyle(
+                                    color: Color(0xFFE8E8EA),
+                                  ),
+                                  enabledBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: Color(0xFFE8E8EA),
+                                    ),
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: Color(0xFFE8E8EA),
+                                    ),
+                                  ),
+                                ),
+                                autovalidateMode:
+                                AutovalidateMode.onUserInteraction,
+                                validator: (value) {
+                                  return value != null && value.length < 6
+                                      ? "Enter min. 6 characters"
+                                      : null;
+                                },
+                              ),
+                              const SizedBox(
+                                height: 10,
+                              ),
                               TextFormField(
                                 controller: _emailController,
                                 decoration: const InputDecoration(
@@ -198,7 +228,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   void _authenticatedWithEmailAndPassword(context) {
     if (_formKey.currentState!.validate()) {
       BlocProvider.of<AuthBloc>(context)
-          .add(SignUpEvent(_emailController.text, _passwordController.text));
+          .add(SignUpEvent(_emailController.text, _passwordController.text, _usernameController.text));
     }
   }
 

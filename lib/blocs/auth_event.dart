@@ -18,8 +18,9 @@ class SignInEvent extends AuthEvent {
 class SignUpEvent extends AuthEvent {
   final String email;
   final String password;
+  final String username;
 
-  SignUpEvent(this.email, this.password);
+  SignUpEvent(this.email, this.password, this.username);
 
   @override
   List<Object?> get props => [email, password];
