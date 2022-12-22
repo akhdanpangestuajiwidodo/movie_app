@@ -7,7 +7,6 @@ import 'package:movie_app/blocs/favorites_movie_event.dart';
 import 'package:movie_app/blocs/favorites_movie_state.dart';
 import 'package:movie_app/widgets/card_favorite_widget.dart';
 
-
 class FavoriteScreen extends StatefulWidget {
   static const routeName = 'favorite_screen';
 
@@ -19,12 +18,15 @@ class FavoriteScreen extends StatefulWidget {
 
 class _FavoriteScreenState extends State<FavoriteScreen> {
   final user = FirebaseAuth.instance.currentUser!;
+
   @override
   void initState() {
     super.initState();
-    context.read<FavoritesMovieBloc>().add(GetFavoritesMovieEvent(user.displayName!));
+    context
+        .read<FavoritesMovieBloc>()
+        .add(GetFavoritesMovieEvent(user.displayName!));
   }
-  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,10 +43,20 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
           if (state is GetFavoritesMovieHasDataState) {
             return Column(
               children: [
-                Text('Username: ${user.displayName}'),
+                Container(
+                  height: 100,
+                  alignment: Alignment.center,
+                  child: Text(
+                    'Hello, ${user.displayName} this is your movies',
+                    style: const TextStyle(
+                        color: Color(0xFFE8E8EA),
+                        fontSize: 18.0,
+                        fontWeight: FontWeight.w500),
+                  ),
+                ),
                 Expanded(
                   child: ListView.separated(
-                    padding: const EdgeInsets.all(8),
+                    padding: const EdgeInsets.only(left: 8.0, right: 8.0),
                     itemBuilder: (BuildContext context, int index) {
                       return CardFavoriteWidget(state.movieList[index]);
                     },
@@ -56,7 +68,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                 ),
               ],
             );
-          }else if(state is GetFavoritesMovieErrorState) {
+          } else if (state is GetFavoritesMovieErrorState) {
             return Center(
               child: Text('${user.displayName}, ${state.message}'),
             );
