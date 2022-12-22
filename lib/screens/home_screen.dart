@@ -58,6 +58,7 @@ class _HomeScreenState extends State<HomeScreen> {
           }
         },
         child: Drawer(
+          backgroundColor: const Color(0xFF1F233F),
           child: SafeArea(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -67,7 +68,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   constraints: const BoxConstraints(minWidth: double.infinity),
                   child: Container(
                     decoration: const BoxDecoration(
-                      color: Colors.blue,
+                      color: Colors.indigo,
                     ),
                     child: Padding(
                       padding: const EdgeInsets.all(12.0),
@@ -79,31 +80,62 @@ class _HomeScreenState extends State<HomeScreen> {
                             backgroundImage: NetworkImage('${user.photoURL}'),
                           ),
                           const SizedBox(height: 10),
-                          Text('${user.displayName}'),
+                          Text(
+                            '${user.displayName}',
+                            style: const TextStyle(
+                                color: Color(0xFFE8E8EA),
+                                fontWeight: FontWeight.w500),
+                          ),
                           const SizedBox(height: 4),
-                          Text('${user.email}'),
+                          Text(
+                            '${user.email}',
+                            style: const TextStyle(
+                                color: Color(0xFFE8E8EA),
+                                fontWeight: FontWeight.w500),
+                          ),
                         ],
                       ),
                     ),
                   ),
                 ),
                 ListTile(
-                  leading: Icon(Icons.movie),
-                  title: Text('Movies'),
+                  leading: const Icon(
+                    Icons.movie,
+                    color: Color(0xFFE8E8EA),
+                  ),
+                  title: const Text(
+                    'Movies',
+                    style: TextStyle(
+                        color: Color(0xFFE8E8EA), fontWeight: FontWeight.w500),
+                  ),
                   onTap: () {
                     Navigator.pop(context);
                   },
                 ),
                 ListTile(
-                  leading: Icon(Icons.save),
-                  title: Text('Favorites'),
+                  leading: const Icon(
+                    Icons.save,
+                    color: Color(0xFFE8E8EA),
+                  ),
+                  title: const Text(
+                    'Favorites',
+                    style: TextStyle(
+                        color: Color(0xFFE8E8EA), fontWeight: FontWeight.w500),
+                  ),
                   onTap: () {
                     Navigator.pushNamed(context, FavoriteScreen.routeName);
                   },
                 ),
                 ListTile(
-                  leading: Icon(Icons.logout),
-                  title: Text('Logout'),
+                  leading: const Icon(
+                    Icons.logout,
+                    color: Color(0xFFE8E8EA),
+                  ),
+                  title: const Text(
+                    'Logout',
+                    style: TextStyle(
+                        color: Color(0xFFE8E8EA), fontWeight: FontWeight.w500),
+                  ),
                   onTap: () {
                     context.read<AuthBloc>().add(SignOutEvent());
                   },
